@@ -1,4 +1,4 @@
-# Lab00 ¡ª Starter Demo (GitHub + C)
+# Lab00 Starter Demo (GitHub + C)
 
 ## Purpose
 This lab is a simple warm-up to practice:
@@ -22,3 +22,4 @@ Open `src/main.c` and modify the printed output to include:
 4. A short message: `I can use GitHub for CS2314 labs!`
 
 Example output:
+
