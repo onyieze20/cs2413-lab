@@ -12,11 +12,15 @@
 //Example 2:
 //Input: nums = [2,2,1,1,1,2,2]
 //Output: 2
-
-
 int majorityElement(int* nums, int numsSize) {
-     // TODO: implement
-
-
-
+    int count = 0;
+    int candidate = 0;
+    for (int i = 0; i < numsSize; i++) {
+        if (count == 0) {
+            candidate = nums[i];
+        }
+        count += (nums[i] == candidate) ? 1 : -1;
+    }
+    return candidate;
+     
 }

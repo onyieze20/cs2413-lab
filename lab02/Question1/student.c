@@ -24,36 +24,51 @@
 //   make run1
 // ------------------------------------------------------------
 
-#include "Student.h"
 #include <stdbool.h>
-#include <stddef.h>  // size_t
-#include <string.h>  // strlen
+#include <stdlib.h>
+#include <string.h>
 
-bool isValid(const char *s) {
-    // TODO: Implement using a stack.
-    //
-    // Recommended approach:
-    // - Use a char array as a stack to store opening brackets.
-    // - Scan the string from left to right:
-    //   - If you see an opening bracket, push it.
-    //   - If you see a closing bracket:
-    //       * stack must not be empty
-    //       * top of stack must match the closing bracket type
-    //       * then pop
-    // - At the end, stack must be empty.
-    //
-    // Helpful matching pairs:
-    //   ')' matches '('
-    //   ']' matches '['
-    //   '}' matches '{'
-    //
-    // Corner cases:
-    // - s == NULL -> return false
-    // - odd length strings can’t be valid 
-    //
-    // Note:
-    // - Input contains only bracket characters, per the prompt.
+static bool is_open(char c) {
+    return (c == '(' || c == '[' || c == '{');
+}
 
-    (void)s; // remove after implementing
-    return false; // placeholder
+static bool matches(char open, char close) {
+    return (open == '(' && close == ')') ||
+        (open == '[' && close == ']') ||
+        (open == '{' && close == '}');
+}
+
+bool isValid(const char* s) {
+    if (s == NULL) return true; // or false depending on your lab's expectations
+
+    size_t n = strlen(s);
+    char* stack = (char*)malloc(n);   // stack capacity = n
+    if (!stack) return false;
+
+    size_t top = 0; // number of items in stack
+
+    for (size_t i = 0; i < n; i++) {
+        char c = s[i];
+
+        if (is_open(c)) {
+            stack[top++] = c; // push
+        }
+        else {
+            // closing bracket: stack must not be empty
+            if (top == 0) {
+                free(stack);
+                return false;
+            }
+            char open = stack[top - 1]; // peek
+            if (!matches(open, c)) {
+                free(stack);
+                return false;
+            }
+            top--; // pop
+        }
+    }
+
+    bool ok = (top == 0);
+    free(stack);
+    return ok;
 }

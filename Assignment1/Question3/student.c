@@ -24,10 +24,19 @@
 
 //Return value (int*): the output digits array.
 //Output parameter (returnSize): set *returnSize to the number of digits in the returned array.
-
 int* plusOne(int* digits, int digitsSize, int* returnSize) {
-    // TODO: implement
-
-    
+    int* res = (int*)calloc((digitsSize + 1), sizeof(int));
+    for (int i = 0; i < digitsSize; i++) res[i] = digits[i];
+    for (int i = digitsSize - 1; i >= 0; i--) {
+        if (res[i] != 9) {
+            res[i] += 1;
+            *returnSize = digitsSize;
+            return res;
+        }
+        else res[i] = 0;
+    }
+    res[0] = 1;
+    *returnSize = digitsSize + 1;
+    return res;
+   
 }
-
