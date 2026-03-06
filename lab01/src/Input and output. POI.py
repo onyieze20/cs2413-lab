@@ -1,0 +1,6 @@
+name = input ('Onyi')
+print(Onyi)
+if age >= 18:
+    print("You are an Adult")
+else:
+    print("You are an Adult")
